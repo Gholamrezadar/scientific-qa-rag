@@ -64,6 +64,44 @@ def get_answer_prompt(question: str, choices: List[str], context: str) -> str:
     if len(choices) != 5:
         raise ValueError("choices must be of length 5")
 
+    return f"""Given the following question, context, and choices, carefully analyze each choice to determine which one is correct. Break down the problem step by step:
+
+Context: {context}
+
+Question: {question}
+
+Choices:
+Choice A) {choices[0]}
+Choice B) {choices[1]}
+Choice C) {choices[2]}
+Choice D) {choices[3]}
+Choice E) {choices[4]}
+
+Very important notes:
+- Start by reading the question carefully. analyze what the question is asking for yourself before going through the choices.
+- Carefully consider the relationship or concept described in the question and context.
+- Evaluate each choice against the context and the question, one by one.
+- Check if each choice is correct, partially correct, or incorrect based on the context and the information provided.
+- Provide a final answer after considering all choices.
+
+It's ok to talk and think about the problem but the last line of your answer should be the string 'Answer:' followed by either A, B, C, D, or E.
+"""
+
+def get_answer_prompt_old(question: str, choices: List[str], context: str) -> str:
+    '''Generates a prompt for the answering model.
+    
+    Args:
+        question (str): The question to answer.
+        choices (List[str]): The possible choices for the question.
+        context (str): The context from which to generate the answer.
+    
+    Returns:
+        str: The prompt for the answering model.
+    '''
+
+    if len(choices) != 5:
+        raise ValueError("choices must be of length 5")
+
     return f"""Answer this multiple choice question using the context below.
 You should be very careful to answer the question correctly. So think about the problem step by step.
 

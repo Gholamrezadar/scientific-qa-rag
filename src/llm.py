@@ -31,7 +31,6 @@ def get_answers_by_model(model_name: str, dataset_file: str, num_questions: int 
         question = row['prompt']
         choices = [row['A'], row['B'], row['C'], row['D'], row['E']]
         context = ""
-        answer = row['answer']
         prompt = get_answer_prompt(question, choices, context)
         prompts.append(prompt)
 
@@ -39,6 +38,6 @@ def get_answers_by_model(model_name: str, dataset_file: str, num_questions: int 
     for prompt in prompts:
         response = chat_model.invoke([HumanMessage(content=prompt)])
         answer_list.append(response.content)
-        print(response.content.split('\n')[-1])
+        # print(response.content.split('\n')[-1])
 
     return answer_list
