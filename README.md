@@ -18,7 +18,7 @@ python qa_rag.py
 
 ## Results
 
-results go here
+Table with columns: 
 
 ## Credits
 

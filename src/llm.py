@@ -1,4 +1,5 @@
 from typing import List
+from tqdm.autonotebook import tqdm
 
 
 def get_answers_by_model(model_name: str, dataset_file: str, num_questions: int = -1) -> List[str]:
@@ -35,7 +36,7 @@ def get_answers_by_model(model_name: str, dataset_file: str, num_questions: int 
         prompts.append(prompt)
 
     answer_list = []
-    for prompt in prompts:
+    for prompt in tqdm(prompts):
         response = chat_model.invoke([HumanMessage(content=prompt)])
         answer_list.append(response.content)
         # print(response.content.split('\n')[-1])
