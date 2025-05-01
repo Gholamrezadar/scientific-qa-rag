@@ -16,7 +16,7 @@ def extract_answered_choice(model_response: str) -> int:
 
     # strip the response
     model_response = model_response.strip()
-    model_response.replace('*', '') # bold and italics
+    model_response = model_response.replace('*', '') # bold and italics
 
     # take the last character
     last_char = model_response[-1]

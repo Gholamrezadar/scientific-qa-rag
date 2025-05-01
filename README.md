@@ -18,11 +18,13 @@ python qa_rag.py
 
 ## Results
 
-| Name                   | avg_accuracy | acc1 | acc2 | params | speed  | std |
-| ---------------------- | ------------ | ---- | ---- | ------ | ------ | --- |
-| Random                 | 20%          | 20%  | 20%    | 0      | -      | 0%  |
-| Gemma3:1b (no-context) | 39%          | 34%  | 44%  | 1B     | 4s/it  | 5%  |
-| phi4:14b (no-context)  | 78%          | 78%  | -    | 14B    | 40s/it | 0%  |
+| Name                           | avg_accuracy | acc_min | acc_max | params | speed  |
+| ------------------------------ | ------------ | ------- | ------- | ------ | ------ |
+| Random                         | 20%          | 20%     | 20%     | 0      | -      |
+| Gemma3:1b (no-context)         | 39%          | 34%     | 44%     | 1B     | 4s/it  |
+| gemma3:12b-it-qat (no-context) | -            |         | -       | 12B    | 25s/it |
+| phi4:14b (no-context)          | 78%          | 78%     | -       | 14B    | 40s/it |
+| GPT-4o (no-context)            | -            | -       | -       | HUGE   | -      |
 
 ## Credits
 
