@@ -1,3 +1,31 @@
 # Todo
 
-- [ ] Draw the diagram 
+- [x] Draw the diagram 
+- [ ] Models
+  - [ ] Test the keyword generation on a few models
+  - [ ] Test the answering on a few models
+  - [ ] Test a few embedding models
+- [ ] web-gathering.py --keywords
+  - [ ] gather_and_save_document(keyword)
+  - [ ] fill the search_results folder with raw text from wikipedia
+- [ ] prompts.py
+  - [ ] get_search_prompt(question)
+  - [ ] get_retrieval_prompt(question)
+  - [ ] get_answer_prompt(question, context)
+- [ ] llm.py
+  - [ ] extract_keyword(question)
+  - [ ] embed_chunks(chunks)
+  - [ ] embed_question(question)
+  - [ ] answer_question(question, context)
+- [ ] rag.py
+  - [ ] chunk_document(document)
+  - [ ] store_embedded_chunks(chunks)
+  - [ ] retrieve_relevant_chunks(embeded_question)
+- [ ] qa_rag.py
+    - [ ] Read arguments (--kw-model, --embed-model, --answer-model, --kw-from-choices, --wiki-max-length, --verbose)
+    - [ ] gather_documents(question) // calls extract_keyword(question) and then web_gathering.py to get the text of the page for each keyword and saves them to files 
+    - [ ] answer_question(question, verbose=False) // does the whole pipeline
+    - [ ] evaluate() // calls answer_question() on all questions and calculates the accuracy
+- [ ] Demos
+  - [ ] Video Demo
+  - [ ] Results Table (Ablations)
