@@ -1,0 +1,3 @@
+# Todo
+
+- [ ] Draw the diagram 
