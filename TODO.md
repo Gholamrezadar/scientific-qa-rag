@@ -22,6 +22,7 @@
   - [ ] store_embedded_chunks(chunks)
   - [ ] retrieve_relevant_chunks(embeded_question)
 - [ ] qa_rag.py
+    - [ ] init model (model loading takes time. don't do it once per question)
     - [ ] Read arguments (--kw-model, --embed-model, --answer-model, --kw-from-choices, --wiki-max-length, --verbose)
     - [ ] gather_documents(question) // calls extract_keyword(question) and then web_gathering.py to get the text of the page for each keyword and saves them to files 
     - [ ] answer_question(question, verbose=False) // does the whole pipeline
