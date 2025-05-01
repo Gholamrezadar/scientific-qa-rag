@@ -5,8 +5,8 @@ answer_list, model_responses, accuracy = evaluate_ollama_model(model_name="gemma
 
 print(f"answer_list: {answer_list}")
 
-for i, response in model_responses:
-    print(f"{i}/50:")
+for i, response in enumerate(model_responses):
+    print(f"{i+1}/50:")
     print(response)
     print("- " * 20)
 
