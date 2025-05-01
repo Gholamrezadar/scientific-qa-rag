@@ -5,7 +5,7 @@
   - [ ] Test the keyword generation on a few models
   - [ ] Test the answering on a few models
   - [ ] Test a few embedding models
-- [ ] web-gathering.py --keywords
+- [ ] web.py --keywords
   - [ ] gather_and_save_document(keyword)
   - [ ] fill the search_results folder with raw text from wikipedia
 - [ ] prompts.py
