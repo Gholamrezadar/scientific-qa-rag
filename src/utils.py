@@ -16,6 +16,7 @@ def extract_answered_choice(model_response: str) -> int:
 
     # strip the response
     model_response = model_response.strip()
+    model_response.replace('*', '') # bold and italics
 
     # take the last character
     last_char = model_response[-1]
@@ -36,24 +37,6 @@ def extract_answered_choice(model_response: str) -> int:
         return random.choice(['A', 'B', 'C', 'D', 'E'])
         # raise ValueError("Model response does not include A, B, C, D, or E at the end.")
 
-    if last_line.startswith('Answer:'):
-        last_line = last_line[len('Answer:'):].strip()
-    else:
-        print("bad response!")
-        return 'A'
-        # raise ValueError("Model response does not start with 'Answer:'")
-
-    if last_line.startswith('A'):
-        return 'A'
-    elif last_line.startswith('B'):
-        return 'B'
-    elif last_line.startswith('C'):
-        return 'C'
-    elif last_line.startswith('D'):
-        return 'D'
-    elif last_line.startswith('E'):
-        return 'E' 
-    else:
 # TODO: rename to extract_choice_from_answer()
 def extract_answered_choice_old(model_response: str) -> int:
     '''Extracts the answered choice from the model response.
