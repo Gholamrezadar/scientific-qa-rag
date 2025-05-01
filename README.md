@@ -18,7 +18,12 @@ python qa_rag.py
 
 ## Results
 
-Table with columns: 
+| Name                          | avg_accuracy | acc1 | acc2 | acc3 | acc4 | acc5 | std |
+|-------------------------------|--------------|------|------|------|------|------|-----|
+| Random                        | 20%         | 20%  | -    | -    | -    |  -   | 0%  |
+| Gemma3:1b (no-context)        | 34%         | 34%  | -    | -    | -    |  -   | 0%  |
+| phi4:14b (no-context)         | 78%         | 78%  | -    | -    | -    |  -   | 0%  |
+
 
 ## Credits
 
