@@ -2,6 +2,10 @@
 
 Answering Multiple Choice Scientific Questions using RAG + Internet Search.
 
+## Diagram
+
+![diagram](demos/qa_rag_diagram.png)
+
 ## Usage
 
 ```bash
