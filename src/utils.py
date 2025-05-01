@@ -1,3 +1,4 @@
+# TODO: rename to extract_choice_from_answer()
 def extract_answered_choice(model_response: str) -> int:
     '''Extracts the answered choice from the model response.
 
@@ -11,21 +12,23 @@ def extract_answered_choice(model_response: str) -> int:
         ValueError: If the model response does not start with 'Answer:' or if the model response does not include A, B, C, D, or E at the end.
     '''
 
-    if model_response.startswith('Answer:'):
-        model_response = model_response[len('Answer:'):].strip()
+    last_line = model_response.split('\n')[-1]
+
+    if last_line.startswith('Answer:'):
+        last_line = last_line[len('Answer:'):].strip()
     else:
         raise ValueError("Model response does not start with 'Answer:'")
 
-    if model_response.startswith('A'):
-        return 0
-    elif model_response.startswith('B'):
-        return 1
-    elif model_response.startswith('C'):
-        return 2
-    elif model_response.startswith('D'):
-        return 3
-    elif model_response.startswith('E'):
-        return 4
+    if last_line.startswith('A'):
+        return 'A'
+    elif last_line.startswith('B'):
+        return 'B'
+    elif last_line.startswith('C'):
+        return 'C'
+    elif last_line.startswith('D'):
+        return 'D'
+    elif last_line.startswith('E'):
+        return 'E' 
     else:
         raise ValueError("Model response does not include A, B, C, D, or E at the end.")
 
