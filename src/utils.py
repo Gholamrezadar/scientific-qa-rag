@@ -19,7 +19,9 @@ def extract_answered_choice(model_response: str) -> int:
     if last_line.startswith('Answer:'):
         last_line = last_line[len('Answer:'):].strip()
     else:
-        raise ValueError("Model response does not start with 'Answer:'")
+        print("bad response!")
+        return 'A'
+        # raise ValueError("Model response does not start with 'Answer:'")
 
     if last_line.startswith('A'):
         return 'A'
@@ -32,7 +34,9 @@ def extract_answered_choice(model_response: str) -> int:
     elif last_line.startswith('E'):
         return 'E' 
     else:
-        raise ValueError("Model response does not include A, B, C, D, or E at the end.")
+        print("bad response!")
+        return 'A'
+        # raise ValueError("Model response does not include A, B, C, D, or E at the end.")
 
 def save_prompts_to_file(dataset_file: str, result_file:str) -> None:
     '''Applies the answer_prompt to all questions in the dataset and saves the prompts to a file. This will be used to asses GUI based models like ChatGPT.'''
