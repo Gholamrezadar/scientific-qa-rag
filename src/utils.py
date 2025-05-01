@@ -1,7 +1,61 @@
 from typing import List
+import random
 
-# TODO: rename to extract_choice_from_answer()
 def extract_answered_choice(model_response: str) -> int:
+    '''Extracts the answered choice from the model response.
+
+    Args:
+        model_response (str): The response from the model.
+
+    Returns:
+        int: The answered choice. 0:A, 1:B, 2:C, 3:D, 4:E
+    
+    Raises:
+        ValueError: If the model response does not start with 'Answer:' or if the model response does not include A, B, C, D, or E at the end.
+    '''
+
+    # strip the response
+    model_response = model_response.strip()
+
+    # take the last character
+    last_char = model_response[-1]
+    last_char.upper()
+    if last_char == 'A':
+        return 'A'
+    elif last_char == 'B':
+        return 'B'
+    elif last_char == 'C':
+        return 'C'
+    elif last_char == 'D':
+        return 'D'
+    elif last_char == 'E':
+        return 'E'
+    else:
+        print("bad response!", last_char)
+        # answer randomly
+        return random.choice(['A', 'B', 'C', 'D', 'E'])
+        # raise ValueError("Model response does not include A, B, C, D, or E at the end.")
+
+    if last_line.startswith('Answer:'):
+        last_line = last_line[len('Answer:'):].strip()
+    else:
+        print("bad response!")
+        return 'A'
+        # raise ValueError("Model response does not start with 'Answer:'")
+
+    if last_line.startswith('A'):
+        return 'A'
+    elif last_line.startswith('B'):
+        return 'B'
+    elif last_line.startswith('C'):
+        return 'C'
+    elif last_line.startswith('D'):
+        return 'D'
+    elif last_line.startswith('E'):
+        return 'E' 
+    else:
+# TODO: rename to extract_choice_from_answer()
+def extract_answered_choice_old(model_response: str) -> int:
     '''Extracts the answered choice from the model response.
 
     Args:
