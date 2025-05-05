@@ -28,7 +28,6 @@ def generate_keywords(keyword_prompt: str,model_name: str):
     keywords = extract_keywords_from_answer(response.content)
     return keywords
 
-    
 
 # TODO: rename to generate_answers
 def get_answers_by_model(model_name: str, dataset_file: str, num_questions: int = -1) -> List[str]:
