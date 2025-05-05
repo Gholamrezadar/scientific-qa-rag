@@ -1,16 +1,37 @@
 from typing import List
 
-def get_search_prompt(question: str) -> str:
+def get_keyword_generation_prompt(question: str, choices: List[str]=[]) -> str:
     '''Generates a prompt for the keyword generation model. The output of the model when passed this prompt should hopefully be a comma separated list of keywords.
 
     Args:
         question (str): The question to answer.
+        choices (List[str]): The possible answers for the question. Can be empty.
 
     Returns:
         str: The prompt for the keyword generation model.
     '''
 
-    return f"""you are a scientist who is trying to answer a question about a scientific topic. i can provide you with a bunch of text from wikipedia articles, but you need to give me keywords to search for to find the answer.
+    # If we have 5 choices, we use this version of the prompt that includes the choices in keyword generation.
+    if len(choices) == 5:
+        return f"""you are a scientist who is trying to answer a question about a scientific topic. I can provide you with a bunch of text from wikipedia articles, but you need to give me keywords to search for to find the answer.
+
+here is the question: {question}
+and here are the possible answers:
+A) {choices[0]}
+B) {choices[1]}
+C) {choices[2]}
+D) {choices[3]}
+E) {choices[4]}
+
+what keywords do you need me to search for you to answer the question?
+i can only search for up to 3 keywords, so be picky and choose the most relevant keywords.
+
+IMPORTANT: DO NOT EXPLAIN OR CHAT, ONLY RESPOND WITH THE KEYWORDS(COMMA SEPERATED)
+comma separated list of keywords:
+"""
+    # Otherwise we ignore the choices
+    else:
+        return f"""you are a scientist who is trying to answer a question about a scientific topic. I can provide you with a bunch of text from wikipedia articles, but you need to give me keywords to search for to find the answer.
 
 here is the question: {question}
 
@@ -22,7 +43,7 @@ comma separated list of keywords:
 """
 
 def get_retrieval_prompt(question: str, choices: List[str]) -> str:
-    '''Generates a prompt for the retrieval model. This prompt is passed to the embedding model and then is compared with chunks in db.
+    '''Generates a prompt for the retrieval model. This prompt is passed to the embedding model and then is compared with embedded chunks in db.
 
     Args:
         question (str): The question to answer.
