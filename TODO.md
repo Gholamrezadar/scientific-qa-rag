@@ -30,3 +30,10 @@
 - [ ] Demos
   - [ ] Video Demo
   - [ ] Results Table (Ablations)
+
+
+## Improvements
+
+- Reranking after retrieval
+- Fine-tuning the models for Multiple Choice Question Answering
+- Agentic? Right now it will search the web even for a 'hi' message!
