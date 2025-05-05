@@ -1,7 +1,7 @@
 from typing import List
 from tqdm.autonotebook import tqdm
 from prompts import get_keyword_generation_prompt, get_retrieval_prompt, get_answer_prompt
-from utils import extract_keywords_from_answer
+from utils import extract_keywords_from_, extract_keywords_from_answer
 from langchain_ollama import ChatOllama
 from langchain.schema import HumanMessage
 import pandas as pd
@@ -25,7 +25,7 @@ def generate_keywords(keyword_prompt: str,model_name: str):
     response = chat_model.invoke([HumanMessage(content=full_prompt)])
 
     # Extract the response content
-    keywords = extract_keywords_from_response(response.content)
+    keywords = extract_keywords_from_answer(response.content)
     return keywords
 
     
