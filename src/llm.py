@@ -1,7 +1,36 @@
 from typing import List
 from tqdm.autonotebook import tqdm
+from prompts import get_keyword_generation_prompt, get_retrieval_prompt, get_answer_prompt
+from utils import extract_keywords_from_answer
+from langchain_ollama import ChatOllama
+from langchain.schema import HumanMessage
+import pandas as pd
 
 
+def generate_keywords(keyword_prompt: str,model_name: str):
+    '''Calls the LLM to generate keywords based on the keyword_prompt.
+
+    Args:
+        keyword_prompt (str): The prompt to use for keyword generation.
+        model_name (str): The name of the model to use.
+
+    Returns:
+        List[str]: The keywords.
+    '''
+
+    chat_model = ChatOllama(model=model_name)
+
+    full_prompt = get_keyword_generation_prompt(keyword_prompt)
+
+    response = chat_model.invoke([HumanMessage(content=full_prompt)])
+
+    # Extract the response content
+    keywords = extract_keywords_from_response(response.content)
+    return keywords
+
+    
+
+# TODO: rename to generate_answers
 def get_answers_by_model(model_name: str, dataset_file: str, num_questions: int = -1) -> List[str]:
     '''Applies the answer_prompt to all questions in the dataset and returns the answer_list.
     
@@ -13,11 +42,6 @@ def get_answers_by_model(model_name: str, dataset_file: str, num_questions: int 
     Returns:
         List[str]: The answer_list.
     '''
-
-    import pandas as pd
-    from src.prompts import get_answer_prompt
-    from langchain_ollama import ChatOllama
-    from langchain.schema import HumanMessage
 
     chat_model = ChatOllama(model=model_name)
 
