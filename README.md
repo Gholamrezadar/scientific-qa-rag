@@ -30,11 +30,11 @@ python qa_rag.py
 
 ## Credits
 
-- https://python.langchain.com/docs/integrations/providers/ollama/
-- https://python.langchain.com/docs/integrations/text_embedding/ollama/
-- https://python.langchain.com/api_reference/ollama/embeddings/langchain_ollama.embeddings.OllamaEmbeddings.html#langchain_ollama.embeddings.OllamaEmbeddings
-- https://python.langchain.com/api_reference/ollama/llms/langchain_ollama.llms.OllamaLLM.html#langchain_ollama.llms.OllamaLLM
-- https://python.langchain.com/docs/integrations/vectorstores/chroma/
-- https://python.langchain.com/api_reference/chroma/vectorstores/langchain_chroma.vectorstores.Chroma.html
+- [Langchain Ollama docs](https://python.langchain.com/docs/integrations/providers/ollama/)
+- [Langchain Ollama Embedding docs](https://python.langchain.com/docs/integrations/text_embedding/ollama/)
+- [Langchain Ollama Embedding API reference](https://python.langchain.com/api_reference/ollama/embeddings/langchain_ollama.embeddings.OllamaEmbeddings.html#langchain_ollama.embeddings.OllamaEmbeddings)
+- [Langchain OllamaLLM API reference](https://python.langchain.com/api_reference/ollama/llms/langchain_ollama.llms.OllamaLLM.html#langchain_ollama.llms.OllamaLLM)
+- [Langchain Chroma docs](https://python.langchain.com/docs/integrations/vectorstores/chroma/)
+- [Langchain Chroma API reference](https://python.langchain.com/api_reference/chroma/vectorstores/langchain_chroma.vectorstores.Chroma.html)
 
 By Gholamreza Dar 2025
