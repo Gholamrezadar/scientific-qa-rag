@@ -1,5 +1,17 @@
 from typing import List
 
+import os
+
+from langchain_community.document_loaders import TextLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.embeddings import OllamaEmbeddings
+from langchain_community.vectorstores import Chroma
+
+from models import EMBEDDING_MODEL_NAME, GENERATION_MODEL_NAME
+
+embedding_model = OllamaEmbeddings(model_name=EMBEDDING_MODEL_NAME)
+vector_db = Chroma(collection_name='rag-db', persist_directory='rag_db', embedding_function=embedding_model)
+
 
 def load_documents(doc_dir: str) -> List[str]:
     '''Loads the documents from the specified directory.
@@ -11,10 +23,19 @@ def load_documents(doc_dir: str) -> List[str]:
         List[str]: The documents.
     '''
 
-    pass
+    documents = []
+    for filename in os.listdir(doc_dir):
+        if filename.endswith(".txt"):
+            path = os.path.join(doc_dir, filename)
+            loader = TextLoader(path)
+            docs = loader.load()
+            for doc in docs:
+                documents.append(doc.page_content)
+    return documents
+
 
 def chunk_document(document: str):
-    '''Chunks the document into smaller chunks using langchain recursiveTextSplitter.
+    '''Divides the document into smaller chunks using langchain RecursiveTextSplitter.
 
     Args:
         document (str): The document to chunk.
@@ -24,6 +45,7 @@ def chunk_document(document: str):
     '''
 
     pass
+
 
 def embed_chunks(chunks: List[str]) -> List[str]:
     '''Embeds the chunks using the specified embedding model.
@@ -37,6 +59,7 @@ def embed_chunks(chunks: List[str]) -> List[str]:
 
     pass
 
+
 def embed_question(question: str) -> str:
     '''Embeds the question using the specified embedding model.
 
@@ -49,6 +72,7 @@ def embed_question(question: str) -> str:
 
     pass
 
+
 def store_vector_in_db(vectors):
     '''Stores an embedded vector in a database.
 
@@ -57,6 +81,7 @@ def store_vector_in_db(vectors):
     '''
 
     pass
+
 
 def retrieve_relevant_chunks(embeded_question: str) -> List[str]:
     '''Retrieves the relevant chunks from the database using the specified embedding model.
