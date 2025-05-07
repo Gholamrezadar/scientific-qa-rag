@@ -67,14 +67,14 @@ def download_web_pages_by_keywords(keywords: List[str], out_dir: str = None):
         valid_file_name = convert_keyword_to_valid_filename(keyword)
         out_file_path = os.path.join(out_dir, valid_file_name + '.txt')
         if os.path.exists(out_file_path):
-            print(f"-- Skipping `{keyword}` because it already exists.\n")
+            print(f"-- Skipping `{keyword}` because it already exists.")
             continue
 
         # print(f"Looking for keyword `{keyword}`...")
         title = fetch_wikipedia_summary(keyword)
         content = fetch_wikipedia_content(title)
         if title is None or content is None:
-            print( f"-- Skipping `{keyword}` because it could not be found on Wikipedia.\n")
+            print( f"-- Skipping `{keyword}` because it could not be found on Wikipedia.")
             continue
         
         with open(out_file_path, 'w', encoding="utf8") as f:

@@ -2,7 +2,6 @@ import argparse
 import logging
 import sys
 from os import makedirs
-import time
 
 from typing import List
 
@@ -11,6 +10,7 @@ from tqdm.auto import tqdm
 
 from src.prompts import get_keyword_generation_prompt
 from src.llm import generate_keywords 
+from src.web import download_web_pages_by_keywords
 
 
 def setup_logging(verbose: bool):
@@ -115,7 +115,6 @@ def main():
     print()
 
     # Download docs from wikipedia for each kw
-    from src.web import download_web_pages_by_keywords
     logging.info("Downloading docs for each kw from wikipedia...")
     for keyword_list in keywords:
         download_web_pages_by_keywords(keywords=keyword_list, out_dir=f'search_results')
