@@ -13,6 +13,48 @@ def get_keyword_generation_prompt(question: str, choices: List[str]=[]) -> str:
 
     # If we have 5 choices, we use this version of the prompt that includes the choices in keyword generation.
     if len(choices) == 5:
+        return f"""you are a tasked with answering multiple choice question about a scientific topic. I can provide you with a bunch of text from wikipedia articles, but you need to give me a keyword to search for.
+        It has to be only one keyword, and it has to be the most relevant keyword. pick a keyword about the whole subject of the question that way you get very relevant context to use.
+
+here is the question: {question}
+and here are the possible answers:
+A) {choices[0]}
+B) {choices[1]}
+C) {choices[2]}
+D) {choices[3]}
+E) {choices[4]}
+
+what keyword do you need me to search for you to answer the question?
+IMPORTANT: DO NOT EXPLAIN OR CHAT, ONLY RESPOND WITH A SINGLE KEYWORD THAT IS LIKELY A WIKIPEDIA ARTICLE. give keywords that would be a page on wikipedia, so name of people, physical phenomena, etc.
+Good Examples: Newton, Gravity, Black hole
+Bad Examples: Number of stars in the universe, What is gravity
+
+"""
+    # Otherwise we ignore the choices
+    else:
+        return f"""you are a tasked with answering multiple choice question about a scientific topic. I can provide you with a bunch of text from wikipedia articles, but you need to give me a keyword to search for.
+        It has to be only one keyword, and it has to be the most relevant keyword. pick a keyword about the whole subject of the question that way you get very relevant context to use.
+
+here is the question: {question}
+
+what keyword do you need me to search for you to answer the question?
+IMPORTANT: DO NOT EXPLAIN OR CHAT, ONLY RESPOND WITH A SINGLE KEYWORD THAT IS LIKELY A WIKIPEDIA ARTICLE 
+
+"""
+
+def get_keyword_generation_prompt_old(question: str, choices: List[str]=[]) -> str:
+    '''Generates a prompt for the keyword generation model. The output of the model when passed this prompt should hopefully be a comma separated list of keywords.
+
+    Args:
+        question (str): The question to answer.
+        choices (List[str]): The possible answers for the question. Can be empty.
+
+    Returns:
+        str: The prompt for the keyword generation model.
+    '''
+
+    # If we have 5 choices, we use this version of the prompt that includes the choices in keyword generation.
+    if len(choices) == 5:
         return f"""you are a scientist who is trying to answer a question about a scientific topic. I can provide you with a bunch of text from wikipedia articles, but you need to give me keywords to search for to find the answer.
 
 here is the question: {question}

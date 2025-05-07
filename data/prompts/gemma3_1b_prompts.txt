@@ -1,15 +1,15 @@
 Given the following question, context, and choices, carefully analyze each choice to determine which one is correct. Break down the problem step by step:
 
-Context: ['== References ==\nNotes\nSources\nCarnot, Sadi, Reflections on the Motive Power of Fire\nEwing, J. A. (1910) The Steam-Engine and Other Engines edition 3, page 62, via Internet Archive\nFeynman, Richard P.; Leighton, Robert B.; Sands, Matthew (1963). The Feynman Lectures on Physics. Addison-Wesley Publishing Company. pp. Chapter 44. ISBN 978-0-201-02116-5. {{cite book}}: ISBN / Date incompatibility (help)\nHalliday, David; Resnick, Robert (1978). Physics (3rd ed.). John Wiley & Sons. pp. 541–548. ISBN 978-0-471-02456-9.\nKittel, Charles; Kroemer, Herbert (1980). Thermal Physics (2nd ed.). W. H. Freeman Company. ISBN 978-0-7167-1088-2.', "A Carnot cycle is an ideal thermodynamic cycle proposed by French physicist Sadi Carnot in 1824 and expanded upon by others in the 1830s and 1840s. By Carnot's theorem, it provides an upper limit on the efficiency of any classical thermodynamic engine during the conversion of heat into work, or conversely, the efficiency of a refrigeration system in creating a temperature difference through the application of work to the system.\nIn a Carnot cycle, a system or engine transfers energy in the form of heat between two thermal reservoirs at temperatures\n{\\displaystyle T_{H}}\nand\n{\\displaystyle T_{C}}"]
+Context: []
 
-Question: What is the main sequence in astronomy?
+Question: how many goals has messi scored in UCL
 
 Choices:
-Choice A) The main sequence is a type of galaxy that contains a large number of stars.
-Choice B) The main sequence is a type of black hole that is formed from the collapse of a massive star.
-Choice C) The main sequence is a continuous and distinctive band of stars that appears on plots of stellar color versus brightness. Stars on this band are known as main-sequence stars or dwarf stars.
-Choice D) The main sequence is a group of planets that orbit around a star in a solar system.
-Choice E) The main sequence is a type of nebula that is formed from the explosion of a supernova.
+Choice A) 1
+Choice B) 2
+Choice C) 3
+Choice D) 4
+Choice E) 100
 
 Very important notes:
 - Start by reading the question carefully. analyze what the question is asking for yourself before going through the choices.
@@ -23,39 +23,16 @@ It's ok to talk and think about the problem but the last line of your answer sho
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 Given the following question, context, and choices, carefully analyze each choice to determine which one is correct. Break down the problem step by step:
 
-Context: ['=== Energy crash ===\nCaffeine is reputed to cause a fall in energy several hours after drinking, but this is not well researched.\n== Overdose ==\nConsumption of 1–1.5 grams (1,000–1,500 mg) per day is associated with a condition known as caffeinism. Caffeinism usually combines caffeine dependency with a wide range of unpleasant symptoms including nervousness, irritability, restlessness, insomnia, headaches, and palpitations after caffeine use.', '=== Energy crash ===\nCaffeine is reputed to cause a fall in energy several hours after drinking, but this is not well researched.\n== Overdose ==\nConsumption of 1–1.5 grams (1,000–1,500 mg) per day is associated with a condition known as caffeinism. Caffeinism usually combines caffeine dependency with a wide range of unpleasant symptoms including nervousness, irritability, restlessness, insomnia, headaches, and palpitations after caffeine use.']
+Context: []
 
-Question: What is the "ultraviolet catastrophe"?
-
-Choices:
-Choice A) It is a phenomenon that occurs only in multi-mode vibration.
-Choice B) It is the misbehavior of a formula for higher frequencies.
-Choice C) It is the standing wave of a string in harmonic resonance.
-Choice D) It is a flaw in classical physics that results in the misallocation of energy.
-Choice E) It is a disproven theory about the distribution of electromagnetic radiation.
-
-Very important notes:
-- Start by reading the question carefully. analyze what the question is asking for yourself before going through the choices.
-- Carefully consider the relationship or concept described in the question and context.
-- Evaluate each choice against the context and the question, one by one.
-- Check if each choice is correct, partially correct, or incorrect based on the context and the information provided.
-- Provide a final answer after considering all choices.
-
-It's ok to talk and think about the problem but the last line of your answer should be the string 'Answer:' followed by either A, B, C, D, or E.
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-Given the following question, context, and choices, carefully analyze each choice to determine which one is correct. Break down the problem step by step:
-
-Context: ["== As a macroscopic construct ==\nThe Carnot heat engine is, ultimately, a theoretical construct based on an idealized thermodynamic system.  On a practical human-scale level the Carnot cycle has proven a valuable model, as in advancing the development of the diesel engine.  However, on a macroscopic scale limitations placed by the model's assumptions prove it impractical, and, ultimately, incapable of doing any work. As such, per Carnot's theorem, the Carnot engine may be thought as the theoretical limit of macroscopic scale heat engines rather than any practical device that could ever be built.\n== See also ==\nCarnot heat engine\nReversible process (thermodynamics)\n== References ==\nNotes\nSources\nCarnot, Sadi, Reflections on the Motive Power of Fire\nEwing, J. A. (1910) The Steam-Engine and Other Engines edition 3, page 62, via Internet Archive", 'Carnot cycle']
-
-Question: What is the Carnot engine?
+Question: how many goals has neymar scored in UCL
 
 Choices:
-Choice A) The Carnot engine is a theoretical engine that operates in the limiting mode of extreme speed known as dynamic. It represents the theoretical maximum efficiency of a heat engine operating between any two given thermal or heat reservoirs at different temperatures.
-Choice B) The Carnot engine is an ideal heat engine that operates in the limiting mode of extreme slowness known as quasi-static. It represents the theoretical maximum efficiency of a heat engine operating between any two given thermal or heat reservoirs at different temperatures.
-Choice C) The Carnot engine is a real heat engine that operates in the limiting mode of extreme speed known as dynamic. It represents the theoretical minimum efficiency of a heat engine operating between any two given thermal or heat reservoirs at different temperatures.
-Choice D) The Carnot engine is a theoretical engine that operates in the limiting mode of extreme slowness known as quasi-static. It represents the theoretical minimum efficiency of a heat engine operating between any two given thermal or heat reservoirs at different temperatures.
-Choice E) The Carnot engine is a real engine that operates in the limiting mode of extreme slowness known as quasi-static. It represents the theoretical maximum efficiency of a heat engine operating between any two given thermal or heat reservoirs at different temperatures.
+Choice A) 1
+Choice B) 2
+Choice C) 3
+Choice D) 40
+Choice E) 100
 
 Very important notes:
 - Start by reading the question carefully. analyze what the question is asking for yourself before going through the choices.

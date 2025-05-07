@@ -1,6 +1,8 @@
+
 import os
 from typing import List
 import requests
+import time
 
 def fetch_wikipedia_summary(keyword, lang='en', verbose=False):
     url = f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{keyword}"
@@ -48,6 +50,7 @@ def fetch_wikipedia_content(keyword, lang='en'):
         return process_wikipedia_content(page.get("extract"))
     else:
         print("Failed to fetch data:", response.status_code)
+        return None
 
 def convert_keyword_to_valid_filename(keyword: str) -> str:
     '''Converts a keyword to a valid filename by replacing spaces with underscores. and removing special characters.'''
@@ -73,6 +76,7 @@ def download_web_pages_by_keywords(keywords: List[str], out_dir: str = None):
         # print(f"Looking for keyword `{keyword}`...")
         title = fetch_wikipedia_summary(keyword)
         content = fetch_wikipedia_content(title)
+        time.sleep(2)
         if title is None or content is None:
             print( f"-- Skipping `{keyword}` because it could not be found on Wikipedia.")
             continue

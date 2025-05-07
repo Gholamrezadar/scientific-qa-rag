@@ -2,9 +2,9 @@ import argparse
 import logging
 import sys
 from os import makedirs
+import time
 
 from typing import List
-
 import pandas as pd
 
 print("Initializing Langchain...")
@@ -43,23 +43,16 @@ def parse_args():
     parser.add_argument("--answer-model", default='gemma3:1b', help="Model used to generate answers")
     parser.add_argument("--embed-model", default='nomic-embed-text', help="Model used for embedding")
     parser.add_argument("--kw-from-choices", action="store_true", help="Extract keywords from the choices too (if false, only extract from the question)")
-    parser.add_argument("--chunk-size", type=int, default=1000, help="Size of chunks for retrieval")
-    parser.add_argument("--chunk-overlap", type=int, default=200, help="Overlap between chunks")
+    parser.add_argument("--chunk-size", type=int, default=2000, help="Size of chunks for retrieval")
+    parser.add_argument("--chunk-overlap", type=int, default=500, help="Overlap between chunks")
     parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose logging")
     parser.add_argument("--load-kw", action="store_true", help="If set, load keywords from file.")
-    parser.add_argument("--max-context", type=int, default=1000, help="Maximum context length per question. set based on your answer generation model's context length.")
+    parser.add_argument("--max-context", type=int, default=5000, help="Maximum context length per question. set based on your answer generation model's context length.")
     return parser.parse_args()
 
 def main():
     args = parse_args()
     setup_logging(args.verbose)
-
-    
-    # 10. Create answering prompt
-    # 11. Generate answer using llm
-    # 12. Extract choice from model response
-    # 13. Save responses to txt file 
-    # 14. Calculate accuracy
 
     # Load dataset
     logging.info('Loading dataset...')
@@ -121,8 +114,9 @@ def main():
     # Chunk docs and store them in vector db 
     logging.info("Chunking docs and storing them in vector db...")
     retrieved_docs = load_documents(doc_dir='search_results')
-    chunks = chunk_document(document=retrieved_docs[0], chunk_size=args.chunk_size, chunk_overlap=args.chunk_overlap)
-    store_chunks_in_db(chunks=chunks)
+    for document in retrieved_docs:
+        chunks = chunk_document(document=document, chunk_size=args.chunk_size, chunk_overlap=args.chunk_overlap)
+        store_chunks_in_db(chunks=chunks)
     logging.info(f'Successfully chunked docs and stored them in vector db for')
     print()
 
@@ -158,7 +152,7 @@ def main():
             f.write('\n')
             f.write("- "*40)
             f.write('\n')
-    logging.info(f'Saved answer prompts to "{file_name}_prompts.txt"')
+    logging.info(f'Saved answer prompts to "{file_name}"')
     print()
 
 
