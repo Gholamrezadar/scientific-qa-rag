@@ -2,7 +2,7 @@ import os
 from typing import List
 import requests
 
-def fetch_wikipedia_summary(keyword, lang='en', verbose=True):
+def fetch_wikipedia_summary(keyword, lang='en', verbose=False):
     url = f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{keyword}"
     response = requests.get(url)
     
@@ -16,6 +16,7 @@ def fetch_wikipedia_summary(keyword, lang='en', verbose=True):
         return data.get('title')
     else:
         print("Failed to fetch data:", response.status_code)
+        return None
 
 def process_wikipedia_content(content: str) -> str:
     '''Remove one character lines and empty lines.'''
@@ -58,7 +59,7 @@ def convert_keyword_to_valid_filename(keyword: str) -> str:
     keyword = keyword.lower()
     return keyword
 
-def download_web_pages_by_keywords(keywords: List[str], out_dir: str = None) -> List[str]:
+def download_web_pages_by_keywords(keywords: List[str], out_dir: str = None):
     if out_dir is None:
         raise ValueError("out_dir must be specified.")
     
@@ -66,19 +67,19 @@ def download_web_pages_by_keywords(keywords: List[str], out_dir: str = None) -> 
         valid_file_name = convert_keyword_to_valid_filename(keyword)
         out_file_path = os.path.join(out_dir, valid_file_name + '.txt')
         if os.path.exists(out_file_path):
-            print(f"-- Skipping `{keyword}` because it already exists.\n\n")
+            print(f"-- Skipping `{keyword}` because it already exists.\n")
             continue
 
-        print(f"Looking for keyword `{keyword}`...")
+        # print(f"Looking for keyword `{keyword}`...")
         title = fetch_wikipedia_summary(keyword)
         content = fetch_wikipedia_content(title)
         if title is None or content is None:
-            print("Failed to download page.\n\n")
+            print( f"-- Skipping `{keyword}` because it could not be found on Wikipedia.\n")
             continue
         
         with open(out_file_path, 'w', encoding="utf8") as f:
             f.write(title)
             f.write('\n\n')
             f.write(content)
-        print(f"-- Saved {keyword} to {out_file_path}\n\n")
+        print(f"-- Saved {keyword} to {out_file_path}\n")
     
