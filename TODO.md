@@ -37,3 +37,8 @@
 - Reranking after retrieval
 - Fine-tuning the models for Multiple Choice Question Answering
 - Agentic? Right now it will search the web even for a 'hi' message!
+
+## Arguments
+
+python qa_rag.py --kw-model=gemma3:1b --embed-model=nomic-embed-text --answer-model=gemma3:1b --kw-from-choices --wiki-max-length=1000 --chunk-size=100 --chunk-overlap=50 --dataset-path=data/train_data.csv --verbose
+-  
