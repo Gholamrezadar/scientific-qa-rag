@@ -1,5 +1,7 @@
 langchain
 langchain_ollama
+langchain_chroma
+langchain_community
 pandas
 matplotlib
 requests
