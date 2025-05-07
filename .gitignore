@@ -1,3 +1,5 @@
 .env
 data.zip
 __pycache__
+rag_db/
+chroma_langchain_db/

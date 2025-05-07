@@ -29,8 +29,28 @@ def generate_keywords(model_name: str, keyword_prompt: str) -> List[str]:
     return keywords
 
 
-# TODO: rename to generate_answers
-def generate_answers(model_name: str, dataset_file: str, num_questions: int = -1) -> List[str]:
+def generate_answers(model_name: str, answer_prompts: List[str]) -> List[str]:
+    '''Generates answers using the specified model for each answer prompt.
+
+    Args:
+        model_name (str): The name of the model to use.
+        answer_prompts (List[str]): The answer prompts to use.
+
+    Returns:
+        List[str]: The answers.
+    '''
+    chat_model = ChatOllama(model=model_name)
+
+    answer_list = []
+    for prompt in tqdm(answer_prompts):
+        response = chat_model.invoke([HumanMessage(content=prompt)])
+        answer_list.append(response.content)
+
+    return answer_list
+
+
+# Used during testing DO NOT USE
+def generate_answers_dataset(model_name: str, dataset_file: str, num_questions: int = -1) -> List[str]:
     '''Applies the answer_prompt to all questions in the dataset and returns the answer_list.
     
     Args:

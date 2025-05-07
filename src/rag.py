@@ -6,12 +6,17 @@ from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_ollama import OllamaEmbeddings
 from langchain_chroma import Chroma
+from chromadb.config import Settings
 
-from .models import EMBEDDING_MODEL_NAME, GENERATION_MODEL_NAME
 
+from .models import EMBEDDING_MODEL_NAME
+print("Initializing Chroma DB...")
 embedding_model = OllamaEmbeddings(model=EMBEDDING_MODEL_NAME)
-vector_db = Chroma(collection_name='rag-db', persist_directory='rag_db', embedding_function=embedding_model)
-
+client_settings = Settings(
+    is_persistent=True,
+    anonymized_telemetry=False  # Disable telemetry
+)
+vector_db = Chroma(collection_name='rag-db', persist_directory='rag_db', embedding_function=embedding_model, client_settings=client_settings)
 
 def load_documents(doc_dir: str) -> List[str]:
     '''Loads the documents from the specified directory.
@@ -27,7 +32,7 @@ def load_documents(doc_dir: str) -> List[str]:
     for filename in os.listdir(doc_dir):
         if filename.endswith(".txt"):
             path = os.path.join(doc_dir, filename)
-            loader = TextLoader(path)
+            loader = TextLoader(path, encoding="utf-8")
             docs = loader.load()
             for doc in docs:
                 documents.append(doc.page_content)
@@ -84,7 +89,6 @@ def store_chunks_in_db(chunks: List[str]) -> None:
     Args:
         chunks (List[str]): The chunks to store.
     '''
-
     vector_db.add_texts(texts=chunks)
 
     
@@ -101,6 +105,6 @@ def retrieve_relevant_chunks(question: str, k: int = 2) -> List[str]:
     retrieved_results = vector_db.similarity_search(query=question, k=k)
     relevant_chunks: List[str] = []
     for result in retrieved_results:
-        relevant_chunks.append(result.page_data)
+        relevant_chunks.append(result.page_content)
     return relevant_chunks
 

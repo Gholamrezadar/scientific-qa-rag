@@ -6,11 +6,15 @@ from os import makedirs
 from typing import List
 
 import pandas as pd
-from tqdm.auto import tqdm
 
-from src.prompts import get_keyword_generation_prompt
+print("Initializing Langchain...")
+from src.prompts import get_keyword_generation_prompt, get_answer_prompt
 from src.llm import generate_keywords 
 from src.web import download_web_pages_by_keywords
+from src.rag import load_documents, chunk_document, store_chunks_in_db, retrieve_relevant_chunks
+from src.llm import generate_answers
+from src.utils import extract_choice_from_response
+from src.eval import evaluate_answer_list
 
 
 def setup_logging(verbose: bool):
@@ -43,21 +47,14 @@ def parse_args():
     parser.add_argument("--chunk-overlap", type=int, default=200, help="Overlap between chunks")
     parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose logging")
     parser.add_argument("--load-kw", action="store_true", help="If set, load keywords from file.")
+    parser.add_argument("--max-context", type=int, default=1000, help="Maximum context length per question. set based on your answer generation model's context length.")
     return parser.parse_args()
 
 def main():
     args = parse_args()
     setup_logging(args.verbose)
 
-    # 1. Load dataset
-    # 2. Create kw prompt for each question
-    # 3. Genrate kw response from model
-    # 4. Extract kws
-    # 5. Download docs from wikipedia for each kw
-    # 6. Chunk each document
-    # 7. Store chunks in store
-    # 8. Similarity Search/context retrieval
-    # 9. Limit context length
+    
     # 10. Create answering prompt
     # 11. Generate answer using llm
     # 12. Extract choice from model response
@@ -95,7 +92,8 @@ def main():
         logging.info(f'Loading keywords from file...')
         with open("data/keywords/keywords_train.txt", "r", encoding="utf-8") as f:
             for line in f:
-                keywords.append(line.strip().split(","))
+                if line.strip() != '':
+                    keywords.append(line.strip().split(","))
         logging.info(f'Successfully loaded keywords for {len(keywords)} questions')
         if args.verbose:
             print(keywords)
@@ -112,7 +110,6 @@ def main():
     with open(f'data/keywords/keywords_train.txt', 'w', encoding='utf-8') as f:
         for keyword_list in keywords:
             f.write(f'{", ".join(keyword_list)}\n')
-    print()
 
     # Download docs from wikipedia for each kw
     logging.info("Downloading docs for each kw from wikipedia...")
@@ -120,72 +117,97 @@ def main():
         download_web_pages_by_keywords(keywords=keyword_list, out_dir=f'search_results')
     logging.info(f'Successfully downloaded docs for {len(keywords)} questions')
     print()
-    return
 
-    # 6. Chunk each document
-    from .rag import chunk_document
-    chunks = []
-    for doc in docs:
-        chunks.append(chunk_document(doc, chunk_size=args.chunk_size, chunk_overlap=args.chunk_overlap))
+    # Chunk docs and store them in vector db 
+    logging.info("Chunking docs and storing them in vector db...")
+    retrieved_docs = load_documents(doc_dir='search_results')
+    chunks = chunk_document(document=retrieved_docs[0], chunk_size=args.chunk_size, chunk_overlap=args.chunk_overlap)
+    store_chunks_in_db(chunks=chunks)
+    logging.info(f'Successfully chunked docs and stored them in vector db for')
+    print()
 
-    print(chunks)
-
-    # 7. Store chunks in store
-    from .rag import store_chunks_in_db
-    store_chunks_in_db(chunks)
-
-    # 8. Similarity Search/context retrieval
-    from .rag import retrieve_relevant_chunks
-    relevant_chunks = []
-    for chunk in chunks:
-        relevant_chunks.append(retrieve_relevant_chunks(chunk))
-
-    print(relevant_chunks)
-
-    # 9. Limit context length
-
-    # 10. Create answering prompt
-    from .prompts import get_answer_prompt
-    answer_prompts = []
+    # Retrieve relevant context for each question
+    logging.info(f"Retrieving relevant context for each question(total: {len(df)})...")
+    contexts = []
     for _, row in df.iterrows():
-        answer_prompts.append(get_answer_prompt(row['question'], row['context']))
+        contexts.append(retrieve_relevant_chunks(question=row['prompt']))
+    logging.info(f'Successfully retrieved relevant context for {len(contexts)} questions')
+    print()
 
-    print(answer_prompts)
+    # Limit context length
+    logging.info(f"Limiting context length to {args.max_context} characters...")
+    contexts = [context[:args.max_context] for context in contexts]
+    logging.info(f'Successfully limited context length for {len(contexts)} questions')
+    print()
 
-    # 11. Generate answer using llm
-    from .llm import generate_response
-    answer_responses = []
-    for prompt in answer_prompts:
-        answer_responses.append(generate_response(prompt, args.answer_model))
+    # Create answering prompts
+    logging.info("Creating answering prompts...")
+    answer_prompts = []
+    for i, row in df.iterrows():
+        question = row['prompt']
+        context = contexts[i]
+        choices = [row['A'], row['B'], row['C'], row['D'], row['E']]
+        answer_prompts.append(get_answer_prompt(question, choices, context))
+    logging.info(f'Successfully created {len(answer_prompts)} answering prompts')
 
-    print(answer_responses)
+    # Save answer prompts to file for review
+    with open(f'data/prompts/{args.answer_model.replace(":","_")}_prompts.txt', 'w', encoding='utf-8') as f:
+        for prompt in answer_prompts:
+            f.write(prompt)
+            f.write('\n')
+            f.write("- "*40)
+            f.write('\n')
+    logging.info(f'Saved answer prompts to {f"data/prompts/{args.answer_model.replace(":","_")}_prompts.txt"}')
+    print()
 
-    # 12. Extract choice from model response
-    from .prompts import get_choices
+
+    # Generate responses using llm
+    logging.info(f"Generating answers for {len(answer_prompts)} prompts...")
+    answer_responses = generate_answers(args.answer_model, answer_prompts)
+    logging.info(f'Successfully generated {len(answer_responses)} answers')
+    # Save raw responses to txt file for review
+    with open(f'data/responses/{args.answer_model.replace(":","_")}_responses.txt', 'w', encoding='utf-8') as f:
+        for response in answer_responses:
+            f.write(response)
+            f.write('\n')
+            f.write("- "*40)
+            f.write('\n')
+    logging.info(f'Saved responses to {f"data/responses/{args.answer_model.replace(":", "_")}_responses.txt"}')
+    print()
+
+    # Read correct choices from dataset if available
+    ground_truth_choices = []
+    if 'answer' in df.columns:
+        ground_truth_choices = df['answer'].tolist()
+
+    # Validate gt
+    for choice in ground_truth_choices:
+        if choice not in "ABCDE":
+            raise ValueError(f"Invalid choice in dataset: {choice}")
+    
+    # Extract choices from raw responses
+    logging.info("Extracting choices from raw responses...")
     choices = []
     for answer_response in answer_responses:
-        choices.append(get_choices(answer_response))
+        choices.append(extract_choice_from_response(answer_response))
+    print(f"Y_pred: {choices}")
+    if len(choices) == len(ground_truth_choices):
+        print(f"Y_true: {ground_truth_choices}")
 
-    print(choices)
+    logging.info(f'Successfully extracted choices for {len(choices)} responses')
 
-    # 13. Save responses to txt file
-    import os
-    os.makedirs('data/rag', exist_ok=True)
-    for i, (question, answer, choices) in enumerate(zip(df['question'], df['answer'], choices)):
-        with open(f'data/rag/rag_{i}.txt', 'w') as f:
-            f.write(f'Question: {question}\n')
-            f.write(f'Answer: {answer}\n')
-            f.write(f'Choices: {choices}\n')
+    # Save responses to txt file
+    with open(f"{args.answer_model.replace(":","_")}_ypred.txt", 'w', encoding="utf8") as f:
+        for choice in choices:
+            f.write(choice + ', ')
+    logging.info(f"Wrote prediction choices to {f'{args.answer_model.replace(":","_")}_ypred.txt'}")
+    print()
 
-    # 14. Calculate accuracy
-    from .prompts import get_accuracy
-    accuracies = []
-    for i, (question, answer, choices) in enumerate(zip(df['question'], df['answer'], choices)):
-        accuracies.append(get_accuracy(answer, choices))
-    
-    print(accuracies)
-    print(f'Average accuracy: {sum(accuracies) / len(accuracies)}')
-
+    # Calculate accuracy
+    if len(choices) == len(ground_truth_choices):
+        accuracy = evaluate_answer_list(choices, ground_truth_choices)
+        print(f"Accuracy for {args.answer_model}: {accuracy}")
+    print()
 
 if __name__ == "__main__":
     main()

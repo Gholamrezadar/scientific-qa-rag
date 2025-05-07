@@ -2,7 +2,7 @@ from typing import List
 import random
 import re
 
-def extract_answered_choice(model_response: str) -> int:
+def extract_choice_from_response(model_response: str) -> int:
     '''Extracts the answered choice from the model response.
 
     Args:
@@ -38,7 +38,7 @@ def extract_answered_choice(model_response: str) -> int:
         return random.choice(['A', 'B', 'C', 'D', 'E'])
         # raise ValueError("Model response does not include A, B, C, D, or E at the end.")
 
-# TODO: rename to extract_choice_from_answer()
+# Used during testing DO NOT USE
 def extract_answered_choice_old(model_response: str) -> int:
     '''Extracts the answered choice from the model response.
 

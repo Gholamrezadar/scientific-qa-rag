@@ -1,2 +1,3 @@
-Messi,Neymar,Ronaldo
-Starbucks,Coffee,Caffeine
+Main sequence,        stellar evolution,        hydrogen envelope
+Ultraviolet,        catastrophe,        radiation,        science
+Carnot cycle,        thermodynamics,        efficiency
