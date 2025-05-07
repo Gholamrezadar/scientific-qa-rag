@@ -92,7 +92,7 @@ def store_chunks_in_db(chunks: List[str]) -> None:
     vector_db.add_texts(texts=chunks)
 
     
-def retrieve_relevant_chunks(question: str, k: int = 2) -> List[str]:
+def retrieve_relevant_chunks(question: str, k: int = 10) -> List[str]:
     '''Retrieves the relevant chunks from the database using the specified embedding model.
 
     Args:
