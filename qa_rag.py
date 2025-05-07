@@ -151,13 +151,14 @@ def main():
     logging.info(f'Successfully created {len(answer_prompts)} answering prompts')
 
     # Save answer prompts to file for review
-    with open(f'data/prompts/{args.answer_model.replace(":","_")}_prompts.txt', 'w', encoding='utf-8') as f:
+    file_name = f"data/prompts/{args.answer_model.replace(':', '_')}_prompts.txt"
+    with open(file_name, 'w', encoding='utf-8') as f:
         for prompt in answer_prompts:
             f.write(prompt)
             f.write('\n')
             f.write("- "*40)
             f.write('\n')
-    logging.info(f'Saved answer prompts to {f"data/prompts/{args.answer_model.replace(":","_")}_prompts.txt"}')
+    logging.info(f'Saved answer prompts to "{file_name}_prompts.txt"')
     print()
 
 
@@ -166,13 +167,14 @@ def main():
     answer_responses = generate_answers(args.answer_model, answer_prompts)
     logging.info(f'Successfully generated {len(answer_responses)} answers')
     # Save raw responses to txt file for review
-    with open(f'data/responses/{args.answer_model.replace(":","_")}_responses.txt', 'w', encoding='utf-8') as f:
+    file_name = f"data/responses/{args.answer_model.replace(':', '_')}_responses.txt"
+    with open(file_name, 'w', encoding='utf-8') as f:
         for response in answer_responses:
             f.write(response)
             f.write('\n')
             f.write("- "*40)
             f.write('\n')
-    logging.info(f'Saved responses to {f"data/responses/{args.answer_model.replace(":", "_")}_responses.txt"}')
+    logging.info(f'Saved responses to {file_name}')
     print()
 
     # Read correct choices from dataset if available
@@ -197,10 +199,11 @@ def main():
     logging.info(f'Successfully extracted choices for {len(choices)} responses')
 
     # Save responses to txt file
-    with open(f"{args.answer_model.replace(":","_")}_ypred.txt", 'w', encoding="utf8") as f:
+    file_name = f"{args.answer_model.replace(':', '_')}_ypred.txt"
+    with open(file_name, 'w', encoding="utf8") as f:
         for choice in choices:
             f.write(choice + ', ')
-    logging.info(f"Wrote prediction choices to {f'{args.answer_model.replace(":","_")}_ypred.txt'}")
+    logging.info(f"Wrote prediction choices to {file_name}")
     print()
 
     # Calculate accuracy
