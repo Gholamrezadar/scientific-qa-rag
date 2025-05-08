@@ -106,6 +106,7 @@ def main():
 
     # Download docs from wikipedia for each kw
     logging.info("Downloading docs for each kw from wikipedia...")
+    makedirs('search_results', exist_ok=True)
     for keyword_list in keywords:
         download_web_pages_by_keywords(keywords=keyword_list, out_dir=f'search_results')
     logging.info(f'Successfully downloaded docs for {len(keywords)} questions')

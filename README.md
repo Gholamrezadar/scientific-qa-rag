@@ -68,6 +68,11 @@ Answer: A'
 - Fine-tuning the models for Multiple Choice Question Answering
 - Agentic? Right now it will search the web even for a 'hi' message!
 
+## Demos
+
+When keyword is found on wikipedia, retrieval works pretty well.
+
+![retrieval works](demos/retrieval_works.jpg)
 
 ## Credits
 
