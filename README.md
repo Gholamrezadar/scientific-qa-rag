@@ -25,6 +25,8 @@ python qa_rag.py
 
 `* GPT-4o was run using OpenAI's Infrastructure. Other models were run on a Colab T4 GPU.`
 
+- Around 1/5 of the keywords get 404 from wikipedia.
+
 ## Dataset
 
 50 multiple choice questions about various scientific topics. [train_data.csv](data/train_data.csv) and [test_data.csv](data/test_data.csv)
