@@ -1,5 +1,50 @@
-coffee_ring_effect
-Peierls_bracket
-Maxwell's_demon
-Coordinated_Universal_Time
-Crystallinity
+1. Main_sequence
+2. Ultraviolet_catastrophe
+3. Carnot_heat_engine
+4. Heavy_ion_fusion
+5. Coffee_ring_effect
+6. Hydraulic_shock
+7. Memristor
+8. Fermi_level
+9. Illuminance
+10. Classical_mechanics
+11. Peierls_bracket
+12. Cosmic_inflation
+13. Frame-dragging
+14. The_Ambidextrous_Universe
+15. Thylakoid
+16. Coordinated_universal_time
+17. Planetary_system
+18. Quark
+19. Star_formation
+20. Maxwell's_demon
+21. Crystallinity
+22. Shower-curtain_effect
+23. Crossover_experiment_(chemistry
+24. Supersymmetric_theory_of_stochastic_dynamics
+25. Young's_interference_experiment
+26. Butterfly_effect
+27. Regular_polytope
+28. Galaxy
+29. Phase_transition
+30. Supernova
+31. Formal_theory
+32. Leidenfrost_effect
+33. International_System_of_Units
+34. Piezoelectric_coefficient
+35. L_dwarf
+36. Landau–Lifshitz–Gilbert_equation
+37. Pulmonary_circulation
+38. Environmental_Science_Center
+39. Modified_Newtonian_dynamics
+40. Probability_density_function
+41. Hilbert_space
+42. Heat_treating
+43. Spin_quantum_number
+44. Free_neutron_decay
+45. Crystallographic_point_group
+46. Theorem_of_three_moments
+47. Cardiac_skeleton
+48. Reciprocal_length
+49. Fischer–Tropsch_process
+50. Rotational_invariance
