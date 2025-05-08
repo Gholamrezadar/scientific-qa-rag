@@ -68,11 +68,40 @@ Answer: A'
 - Fine-tuning the models for Multiple Choice Question Answering
 - Agentic? Right now it will search the web even for a 'hi' message!
 
-## Demos
+## Problems and Discussions  
+
+### Bad Wikipedia Search
+
+Sometimes the generated keyword is very good but can't be found on wikipedia.
+
+```text
+Question: What is a ""coffee ring"" in physics?
+```
+
+![wikipedia not found](demos/coffee_ring_effect_not_found.jpg)
+
+However the page is available on wikipedia with a slightly different format: https://en.wikipedia.org/wiki/Coffee_ring_effect
+
+Another example is the keyword "luis suarez" which is not found on wikipedia, but "luis Suarez" is!!
+
+- ❌ https://en.wikipedia.org/api/rest_v1/page/summary/Luis_suarez
+
+- 🟢 https://en.wikipedia.org/api/rest_v1/page/summary/Luis_Suarez
+
+### Retrieval works well
 
 When keyword is found on wikipedia, retrieval works pretty well.
 
 ![retrieval works](demos/retrieval_works.jpg)
+
+### Manual Keywords
+
+Manually choosing a keyword for each question that is guaranteed to be found on wikipedia results in a much better results.
+
+![automatic bad keywords](demos/bad_automatic_keywords_result.png)
+![manual good keywords](demos/manual_keywords_result.png)
+
+From this we conclude that the retrieval and answer generation are not that bad, but the keyword generation is.
 
 ## Credits
 

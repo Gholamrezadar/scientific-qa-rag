@@ -5,6 +5,8 @@ import requests
 import time
 
 def fetch_wikipedia_summary(keyword, lang='en', verbose=False):
+    keyword = keyword.replace(' ', '_')
+    keyword = keyword.replace('-', '_')
     url = f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{keyword}"
     response = requests.get(url)
     
