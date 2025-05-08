@@ -37,20 +37,27 @@ python qa_rag.py --kw-model "gemma3:12b-it-qat" --answer-model "gemma3:12b-it-qa
 python qa_rag.py --kw-model "gemma3:12b-it-qat" --answer-model "gemma3:12b-it-qat" --dataset ./data/train_data.csv --num-samples 50 --chunk-size 10000 --load-kw
 ```
 
+Example Notebook: [Scientific_QA_RAG_notebook on colab](https://colab.research.google.com/drive/1Cgo6eVz61alc63PmRgc2WQzVkQ0jO9s_?usp=sharing)
+
 ## Results
 
-| Name                           | avg_accuracy | acc_min | acc_max | params | speed   |
-| ------------------------------ | ------------ | ------- | ------- | ------ | ------- |
-| Random                         | 20%          | 20%     | 20%     | 0      | -       |
-| Gemma3:1b (no-context)         | 39%          | 34%     | 44%     | 1B     | 4s/it   |
-| gemma3:12b-it-qat (no-context) | 78%          | -       | -       | 12B    | 26s/it  |
-| gemma3:12b-it-qat (context)    | 78%          | -       | -       | 12B    | 26s/it  |
-| phi4:14b (no-context)          | 78%          | -       | -       | 14B    | 40s/it  |
-| GPT-4o (no-context)            | 88%          | -       | -       | 600B+  | 16s/it* |
+| Name                                        | avg_accuracy | acc_min | acc_max | params | speed   |
+| ------------------------------------------- | ------------ | ------- | ------- | ------ | ------- |
+| Random                                      | 20%          | 20%     | 20%     | 0      | -       |
+| Gemma3:1b (no-context)                      | 39%          | 34%     | 44%     | 1B     | 4s/it   |
+| gemma3:12b-it-qat (no-context)              | 75%          | 72%     | 78%     | 12B    | 26s/it  |
+| phi4:14b (no-context)                       | 78%          | -       | -       | 14B    | 40s/it  |
+| **gemma3:12b-it-qat (context)**             | **78%**      | -       | -       | 12B    | 26s/it  |
+| **gemma3:12b-it-qat (context + manual_kw)** | **84%**      | -       | -       | 12B    | 26s/it  |
+| GPT-4o (no-context)                         | 88%          | -       | -       | 600B+  | 16s/it* |
 
 `* GPT-4o was run using OpenAI's Infrastructure. Other models were run on a Colab T4 GPU.`
 
-Note: Around 1/5 of the keywords get 404 from wikipedia.
+*Around 1/5 of the keywords get 404 from wikipedia.*
+
+### gemma3:12b-it-qat (context + manual_kw) results:
+
+![84 demo](demos/manual_keywords_result_84.png)
 
 ## Dataset
 
