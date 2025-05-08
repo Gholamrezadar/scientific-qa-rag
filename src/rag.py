@@ -55,34 +55,6 @@ def chunk_document(document: str, chunk_size: int = 1000, chunk_overlap: int = 2
     return splitter.split_text(document)
 
 
-# def embed_chunks(chunks: List[str]) -> List[List[float]]:
-#     '''Embeds the chunks using the specified embedding model.
-
-#     Args:
-#         chunks (List[str]): The chunked documents.
-
-#     Returns:
-#         List[List[float]]: The embedded chunks.
-#     '''
-#     embedded_chunks = []
-#     for chunk in chunks:
-#         embedded_chunks.append(embedding_model.embed_query(chunk))
-#     return embedded_chunks
-
-
-# def embed_question(question: str) -> List[float]:
-#     '''Embeds the question using the specified embedding model.
-
-#     Args:
-#         question (str): The question to embed.
-
-#     Returns:
-#         List[float]: The embedded question.
-#     '''
-
-#     return embedding_model.embed_query(question)
-
-
 def store_chunks_in_db(chunks: List[str]) -> None:
     '''Stores chunks in the database.
 
