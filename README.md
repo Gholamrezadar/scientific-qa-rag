@@ -97,7 +97,9 @@ Answer: A'
 
 ### Bad Wikipedia Search
 
-Sometimes the generated keyword is very good but can't be found on wikipedia.
+From my experiments I found out that the main culprit was the bad wikipedia search api!
+
+Sometimes the generated keyword was very good but couldn't be found on wikipedia.
 
 ```text
 Question: What is a ""coffee ring"" in physics?
@@ -123,10 +125,15 @@ When keyword is found on wikipedia, retrieval works pretty well.
 
 Manually choosing a keyword for each question that is guaranteed to be found on wikipedia results in a much better results.
 
+#### Automatic Keywords (lots of 404 errors)
+
 ![automatic bad keywords](demos/bad_automatic_keywords_result.png)
+
+#### Manual Keywords (guaranteed to be found)
+
 ![manual good keywords](demos/manual_keywords_result.png)
 
-From this we conclude that the retrieval and answer generation are not that bad, but the keyword generation is.
+From this we conclude that the retrieval and answer generation are descent, butthe keyword generation is bad.
 
 ## Credits
 
