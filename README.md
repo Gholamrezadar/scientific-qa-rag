@@ -2,14 +2,39 @@
 
 Answering Multiple Choice Scientific Questions using RAG + Internet Search.
 
-## Diagram
+Answering questions that require knowledge of very niche topics, such as astrophysics, quantum mechanics, etc. is challenging for a lot of LLMs, especially the smaller ones (similar to the models we are using here).
+
+That's why we are using a combination of RAG (Retrieval Augmented Generation) and Internet Search to answer these questions.
+
+## Pipeline
 
 ![diagram](demos/qa_rag_diagram.png)
+
+As can be seen from the diagram,
+
+- We first extract keywords from the questions using a model and a keyword generation prompt.
+- Then we download the relevant pages from wikipedia for each keyword.
+- We then chunk the pages into smaller chunks using a text splitter.
+- We store the chunks in a vector database (ChromaDB).
+- For each question, we retrieve the relevant chunks from the database.
+- We then create an answering prompt using the question, the context, and the choices.
+- The LLM generates the answer using the answering prompt.
+- We extract the correct answer from the raw response.
+- Finally, we calculate the accuracy of the model.
+
+You can study the prompts used in this project at [src/prompts.py](src/prompts.py).
 
 ## Usage
 
 ```bash
-python qa_rag.py
+# help
+python qa_rag.py --help
+
+# answer the first 50 questions in the dataset
+python qa_rag.py --kw-model "gemma3:12b-it-qat" --answer-model "gemma3:12b-it-qat" --dataset ./data/train_data.csv --num-samples 50
+
+# load keywords from file (--load-kw)
+python qa_rag.py --kw-model "gemma3:12b-it-qat" --answer-model "gemma3:12b-it-qat" --dataset ./data/train_data.csv --num-samples 50 --chunk-size 10000 --load-kw
 ```
 
 ## Results
@@ -25,7 +50,7 @@ python qa_rag.py
 
 `* GPT-4o was run using OpenAI's Infrastructure. Other models were run on a Colab T4 GPU.`
 
-- Around 1/5 of the keywords get 404 from wikipedia.
+Note: Around 1/5 of the keywords get 404 from wikipedia.
 
 ## Dataset
 
